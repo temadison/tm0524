@@ -1,2 +1,2 @@
-# tm0524
-Cardinal Financial Programming Demonstration
+### tm0524
+# Point of Sale Tool Rental
