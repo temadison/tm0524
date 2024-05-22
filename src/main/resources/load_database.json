@@ -1,0 +1,28 @@
+{
+  "toolMOList": [
+    {
+      "code": "CHNS",
+      "type": "CHAINSAW",
+      "brand": "STIHL",
+      "dailyRate": "1.49"
+    },
+    {
+      "code": "LADW",
+      "type": "LADDER",
+      "brand": "WERNER",
+      "dailyRate": "1.99"
+    },
+    {
+      "code": "JAKD",
+      "type": "JACKHAMMER",
+      "brand": "DEWALT",
+      "dailyRate": "2.99"
+    },
+    {
+      "code": "JAKR",
+      "type": "JACKHAMMER",
+      "brand": "RIDGID",
+      "dailyRate": "2.99"
+    }
+  ]
+}

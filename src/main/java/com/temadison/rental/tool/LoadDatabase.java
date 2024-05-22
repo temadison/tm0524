@@ -1,0 +1,35 @@
+package com.temadison.rental.tool;
+
+import com.temadison.rental.tool.model.ToolMO;
+import com.temadison.rental.tool.repository.ToolRepository;
+import com.temadison.rental.tool.util.JsonParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.io.InputStream;
+import java.util.List;
+
+@Configuration
+class LoadDatabase {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoadDatabase.class);
+
+    @Bean
+    CommandLineRunner initDatabase(ToolRepository toolRepository) {
+        LOGGER.info("Removing existing tool records...");
+        toolRepository.deleteAll();
+        LOGGER.info("Existing tool records removed.");
+
+        LOGGER.info("Loading new tool records...");
+        JsonParser parser = new JsonParser();
+        InputStream is = getClass().getClassLoader().getResourceAsStream("load_database.json");
+        List<ToolMO> toolList = parser.parseJsonFile(is);
+        return args -> {
+            toolRepository.saveAll(toolList);
+            LOGGER.info("New tool records loaded.");
+        };
+    }
+}
