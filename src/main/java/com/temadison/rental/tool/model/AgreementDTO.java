@@ -1,6 +1,7 @@
 package com.temadison.rental.tool.model;
 
 import com.temadison.rental.tool.util.DateUtil;
+import com.temadison.rental.tool.util.FormatUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -80,14 +81,14 @@ public class AgreementDTO {
                 + "Tool type: " + this.toolMO.getType().getValue() + "\n"
                 + "Tool brand: " + this.toolMO.getBrand().getValue() + "\n"
                 + "Rental days: " + this.numberOfDays + "\n"
-                + "Check out date: " + this.checkoutDate + "\n"
-                + "Due date: " + this.checkoutDate.plusDays(this.numberOfDays) + "\n"
-                + "Daily rental charge: " + this.toolMO.getDailyRate() + "\n"
+                + "Check out date: " + FormatUtil.formatDate(this.checkoutDate) + "\n"
+                + "Due date: " + FormatUtil.formatDate(this.checkoutDate.plusDays(this.numberOfDays)) + "\n"
+                + "Daily rental charge: " + FormatUtil.formatCurrency(this.toolMO.getDailyRate()) + "\n"
                 + "Charge days: " + chargeDays + "\n"
-                + "Pre-discount charge: " + this.toolMO.getDailyRate().multiply(new BigDecimal(chargeDays.toString())) + "\n"
-                + "Discount percent: " + this.discountPercent + "\n"
-                + "Discount amount: " + discountAmount + "\n"
-                + "Final charge: " + this.toolMO.getDailyRate().multiply(new BigDecimal(chargeDays)).subtract(discountAmount);
+                + "Pre-discount charge: " + FormatUtil.formatCurrency(this.toolMO.getDailyRate().multiply(new BigDecimal(chargeDays.toString()))) + "\n"
+                + "Discount percent: " + FormatUtil.formatPercent(this.discountPercent) + "\n"
+                + "Discount amount: " + FormatUtil.formatCurrency(discountAmount) + "\n"
+                + "Final charge: " + FormatUtil.formatCurrency(this.toolMO.getDailyRate().multiply(new BigDecimal(chargeDays)).subtract(discountAmount));
     }
 
     private Integer calculateChargeDays() {
@@ -114,6 +115,6 @@ public class AgreementDTO {
                 + "numberOfDays=" + this.numberOfDays + ", "
                 + "discountPercent=" + this.discountPercent + ", "
                 + "checkoutDate=" + this.checkoutDate
-                + "}'";
+                + "}";
     }
 }
