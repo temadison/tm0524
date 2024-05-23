@@ -1,5 +1,7 @@
 package com.temadison.rental.tool.model;
 
+import com.temadison.rental.tool.util.DateUtil;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -89,8 +91,7 @@ public class AgreementDTO {
     }
 
     private Integer calculateChargeDays() {
-        // TODO: Determine and subtract holidays
-        return this.numberOfDays;
+        return this.numberOfDays - DateUtil.holidaysInDateRange(this.checkoutDate, this.numberOfDays);
     }
 
     private BigDecimal calculateDiscountAmount() {
