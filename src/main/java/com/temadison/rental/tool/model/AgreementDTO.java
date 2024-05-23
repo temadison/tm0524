@@ -91,7 +91,14 @@ public class AgreementDTO {
     }
 
     private Integer calculateChargeDays() {
-        return this.numberOfDays - DateUtil.holidaysInDateRange(this.checkoutDate, this.numberOfDays);
+        Integer chargeDays = this.numberOfDays;
+        if (!this.toolMO.includeHolidays()) {
+            chargeDays -= DateUtil.holidaysInDateRange(this.checkoutDate, this.numberOfDays);
+        }
+        if (!this.toolMO.includeWeekendDays()) {
+            chargeDays -= DateUtil.weekendDaysInDateRange(this.checkoutDate, this.numberOfDays);
+        }
+        return chargeDays;
     }
 
     private BigDecimal calculateDiscountAmount() {

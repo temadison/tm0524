@@ -28,4 +28,24 @@ class DateUtilTest {
         assertEquals(1, DateUtil.holidaysInDateRange(LocalDate.of(2020, 7, 7), 62));
         assertEquals(2, DateUtil.holidaysInDateRange(LocalDate.of(2020, 7, 5), 64));
     }
+
+    /**
+     * Note that in 2020, New Years Day (1/1) fell on a Wednesday.
+     */
+    @Test
+    void weekendDaysInDateRange() {
+        assertEquals(8, DateUtil.weekendDaysInDateRange(LocalDate.of(2020, 1, 1), 30));
+        assertEquals(52, DateUtil.weekendDaysInDateRange(LocalDate.of(2020, 1, 1), 180));
+        assertEquals(60, DateUtil.weekendDaysInDateRange(LocalDate.of(2020, 1, 1), 210));
+        assertEquals(68, DateUtil.weekendDaysInDateRange(LocalDate.of(2020, 1, 1), 240));
+        assertEquals(78, DateUtil.weekendDaysInDateRange(LocalDate.of(2020, 1, 1), 270));
+        assertEquals(1, DateUtil.weekendDaysInDateRange(LocalDate.of(2020, 7, 1), 3));
+        assertEquals(2, DateUtil.weekendDaysInDateRange(LocalDate.of(2020, 7, 1), 4));
+        assertEquals(1, DateUtil.weekendDaysInDateRange(LocalDate.of(2020, 9, 1), 4));
+        assertEquals(2, DateUtil.weekendDaysInDateRange(LocalDate.of(2020, 9, 1), 5));
+        assertEquals(18, DateUtil.weekendDaysInDateRange(LocalDate.of(2020, 7, 5), 63));
+        assertEquals(18, DateUtil.weekendDaysInDateRange(LocalDate.of(2020, 7, 7), 61));
+        assertEquals(19, DateUtil.weekendDaysInDateRange(LocalDate.of(2020, 7, 8), 66));
+        assertEquals(20, DateUtil.weekendDaysInDateRange(LocalDate.of(2020, 7, 8), 67));
+    }
 }

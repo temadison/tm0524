@@ -20,15 +20,19 @@ import static org.mockito.Mockito.when;
 
 public class ToolServiceTest {
 
-    private static final String TOOL_CODE_1 = "CHNS";
-    private static final ToolType TOOL_TYPE_1 = ToolType.CHAINSAW;
-    private static final Brand TOOL_BRAND_1 = Brand.DEWALT;
-    private static final BigDecimal TOOL_DAILY_RATE_1 = new BigDecimal("1.49");
+    private static final String TOOL_CODE_CHNS = "CHNS";
+    private static final ToolType TOOL_TYPE_CHNS = ToolType.CHAINSAW;
+    private static final Brand TOOL_BRAND_CHNS = Brand.DEWALT;
+    private static final BigDecimal TOOL_DAILY_RATE_CHNS = new BigDecimal("1.49");
+    private static final boolean TOOL_INCLUDE_WEEKEND_DAYS_CHNS = false;
+    private static final boolean TOOL_INCLUDE_HOLIDAYS_CHNS = true;
 
-    private static final String TOOL_CODE_2 = "LADW";
-    private static final ToolType TOOL_TYPE_2 = ToolType.LADDER;
-    private static final Brand TOOL_BRAND_2 = Brand.WERNER;
-    private static final BigDecimal TOOL_DAILY_RATE_2 = new BigDecimal("1.99");
+    private static final String TOOL_CODE_LADW = "LADW";
+    private static final ToolType TOOL_TYPE_LADW = ToolType.LADDER;
+    private static final Brand TOOL_BRAND_LADW = Brand.WERNER;
+    private static final BigDecimal TOOL_DAILY_RATE_LADW = new BigDecimal("1.99");
+    private static final boolean TOOL_INCLUDE_WEEKEND_DAYS_LADW = true;
+    private static final boolean TOOL_INCLUDE_HOLIDAYS_LADW = false;
 
     @Mock
     private ToolRepository toolRepository;
@@ -43,27 +47,27 @@ public class ToolServiceTest {
     @Test
     @DisplayName("Test ToolService.getAllTools() works")
     public void testGetAllTools() {
-        ToolMO tool1 = new ToolMO(TOOL_CODE_1, TOOL_TYPE_1, TOOL_BRAND_1, TOOL_DAILY_RATE_1);
-        ToolMO tool2 = new ToolMO(TOOL_CODE_2, TOOL_TYPE_2, TOOL_BRAND_2, TOOL_DAILY_RATE_2);
+        ToolMO tool1 = new ToolMO(TOOL_CODE_CHNS, TOOL_TYPE_CHNS, TOOL_BRAND_CHNS, TOOL_DAILY_RATE_CHNS, TOOL_INCLUDE_WEEKEND_DAYS_CHNS, TOOL_INCLUDE_HOLIDAYS_CHNS);
+        ToolMO tool2 = new ToolMO(TOOL_CODE_LADW, TOOL_TYPE_LADW, TOOL_BRAND_LADW, TOOL_DAILY_RATE_LADW, TOOL_INCLUDE_WEEKEND_DAYS_LADW, TOOL_INCLUDE_HOLIDAYS_LADW);
 
         when(toolRepository.findAll()).thenReturn(Arrays.asList(tool1, tool2));
 
         List<ToolMO> tools = toolService.getAllTools();
         assertEquals(2, tools.size());
-        assertEquals(TOOL_CODE_1, tools.get(0).getCode());
-        assertEquals(TOOL_CODE_2, tools.get(1).getCode());
+        assertEquals(TOOL_CODE_CHNS, tools.get(0).getCode());
+        assertEquals(TOOL_CODE_LADW, tools.get(1).getCode());
     }
 
     @Test
     @DisplayName("Test ToolService.getToolById() works when ID is found")
     public void testGetToolById() {
-        ToolMO tool = new ToolMO(TOOL_CODE_1, TOOL_TYPE_1, TOOL_BRAND_1, TOOL_DAILY_RATE_1);
+        ToolMO tool = new ToolMO(TOOL_CODE_CHNS, TOOL_TYPE_CHNS, TOOL_BRAND_CHNS, TOOL_DAILY_RATE_CHNS, TOOL_INCLUDE_WEEKEND_DAYS_CHNS, TOOL_INCLUDE_HOLIDAYS_CHNS);
 
         when(toolRepository.findById(1L)).thenReturn(Optional.of(tool));
 
         ToolMO foundTool = toolService.getToolById(1L);
         assertNotNull(foundTool);
-        assertEquals(TOOL_CODE_1, foundTool.getCode());
+        assertEquals(TOOL_CODE_CHNS, foundTool.getCode());
     }
 
     @Test
@@ -79,13 +83,13 @@ public class ToolServiceTest {
     @Test
     @DisplayName("Test ToolService.getToolByCode() works when code is found")
     public void testGetToolByCode() {
-        ToolMO tool = new ToolMO(TOOL_CODE_1, TOOL_TYPE_1, TOOL_BRAND_1, TOOL_DAILY_RATE_1);
+        ToolMO tool = new ToolMO(TOOL_CODE_CHNS, TOOL_TYPE_CHNS, TOOL_BRAND_CHNS, TOOL_DAILY_RATE_CHNS, TOOL_INCLUDE_WEEKEND_DAYS_CHNS, TOOL_INCLUDE_HOLIDAYS_CHNS);
 
-        when(toolRepository.findFirstByCode(TOOL_CODE_1)).thenReturn(Optional.of(tool));
+        when(toolRepository.findFirstByCode(TOOL_CODE_CHNS)).thenReturn(Optional.of(tool));
 
-        ToolMO foundTool = toolService.getToolByCode(TOOL_CODE_1);
+        ToolMO foundTool = toolService.getToolByCode(TOOL_CODE_CHNS);
         assertNotNull(foundTool);
-        assertEquals(TOOL_CODE_1, foundTool.getCode());
+        assertEquals(TOOL_CODE_CHNS, foundTool.getCode());
     }
 
     @Test

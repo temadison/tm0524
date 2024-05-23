@@ -19,14 +19,19 @@ public class ToolMO {
 
     private BigDecimal dailyRate;
 
+    private boolean includeWeekendDays;
+    private boolean includeHolidays;
+
     protected ToolMO() {
     }
 
-    public ToolMO(String code, ToolType type, Brand brand, BigDecimal dailyRate) {
+    public ToolMO(String code, ToolType type, Brand brand, BigDecimal dailyRate, boolean includeWeekendDays, boolean includeHolidays) {
         this.code = code;
         this.type = type;
         this.brand = brand;
         this.dailyRate = dailyRate;
+        this.includeWeekendDays = includeWeekendDays;
+        this.includeHolidays = includeHolidays;
     }
 
     public Long getId() {
@@ -49,6 +54,14 @@ public class ToolMO {
         return this.dailyRate;
     }
 
+    public boolean includeWeekendDays() {
+        return includeWeekendDays;
+    }
+
+    public boolean includeHolidays() {
+        return includeHolidays;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -67,6 +80,14 @@ public class ToolMO {
 
     public void setDailyRate(BigDecimal dailyRate) {
         this.dailyRate = dailyRate;
+    }
+
+    public void setIncludeWeekendDays(boolean includeWeekendDays) {
+        this.includeWeekendDays = includeWeekendDays;
+    }
+
+    public void setIncludeHolidays(boolean includeHolidays) {
+        this.includeHolidays = includeHolidays;
     }
 
     @Override
@@ -94,7 +115,9 @@ public class ToolMO {
                 + "code='" + this.code + "', "
                 + "type='" + this.type + "', "
                 + "brand='" + this.brand + "', "
-                + "dailyRate=" + this.dailyRate
-                + "}'";
+                + "dailyRate=" + this.dailyRate + ", "
+                + "includeWeekendDays=" + this.includeWeekendDays + ", "
+                + "includeHolidays=" + this.includeHolidays
+                + "}";
     }
 }
