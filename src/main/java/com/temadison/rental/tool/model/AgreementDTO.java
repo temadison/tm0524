@@ -1,5 +1,7 @@
 package com.temadison.rental.tool.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -70,18 +72,31 @@ public class AgreementDTO {
     }
 
     public String asReport() {
+        Integer chargeDays = this.calculateChargeDays();
+        BigDecimal discountAmount = this.calculateDiscountAmount();
         return "Tool code: " + this.toolMO.getCode() + "\n"
-                + "Tool type: " + this.toolMO.getType() + "\n"
-                + "Tool brand: " + this.toolMO.getBrand() + "\n"
+                + "Tool type: " + this.toolMO.getType().getValue() + "\n"
+                + "Tool brand: " + this.toolMO.getBrand().getValue() + "\n"
                 + "Rental days: " + this.numberOfDays + "\n"
-                + "Check out date: " + this.discountPercent + "\n"
-                + "Due date: " + this.toolMO.getCode() + "\n"
+                + "Check out date: " + this.checkoutDate + "\n"
+                + "Due date: " + this.checkoutDate.plusDays(this.numberOfDays) + "\n"
                 + "Daily rental charge: " + this.toolMO.getDailyRate() + "\n"
-                + "Charge days: " + this.discountPercent + "\n"
-                + "Pre-discount charge: " + this.toolMO.getCode() + "\n"
-                + "Discount percent: " + this.numberOfDays + "\n"
-                + "Discount amount: " + this.discountPercent + "\n"
-                + "Final charge: " + this.checkoutDate;
+                + "Charge days: " + chargeDays + "\n"
+                + "Pre-discount charge: " + this.toolMO.getDailyRate().multiply(new BigDecimal(chargeDays.toString())) + "\n"
+                + "Discount percent: " + this.discountPercent + "\n"
+                + "Discount amount: " + discountAmount + "\n"
+                + "Final charge: " + this.toolMO.getDailyRate().multiply(new BigDecimal(chargeDays)).subtract(discountAmount);
+    }
+
+    private Integer calculateChargeDays() {
+        // TODO: Determine and subtract holidays
+        return this.numberOfDays;
+    }
+
+    private BigDecimal calculateDiscountAmount() {
+        BigDecimal preDiscountCharge = this.toolMO.getDailyRate().multiply(new BigDecimal(this.calculateChargeDays()));
+        BigDecimal listPercent = new BigDecimal(this.discountPercent.toString());
+        return preDiscountCharge.multiply(listPercent).divide(new BigDecimal("100"), RoundingMode.HALF_UP);
     }
 
     @Override

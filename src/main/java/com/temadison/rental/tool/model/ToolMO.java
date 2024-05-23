@@ -2,6 +2,7 @@ package com.temadison.rental.tool.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity(name = "Tool")
@@ -16,12 +17,12 @@ public class ToolMO {
     private ToolType type;
     private Brand brand;
 
-    private Double dailyRate;
+    private BigDecimal dailyRate;
 
     protected ToolMO() {
     }
 
-    public ToolMO(String code, ToolType type, Brand brand, Double dailyRate) {
+    public ToolMO(String code, ToolType type, Brand brand, BigDecimal dailyRate) {
         this.code = code;
         this.type = type;
         this.brand = brand;
@@ -44,7 +45,7 @@ public class ToolMO {
         return this.brand;
     }
 
-    public Double getDailyRate() {
+    public BigDecimal getDailyRate() {
         return this.dailyRate;
     }
 
@@ -64,7 +65,7 @@ public class ToolMO {
         this.brand = brand;
     }
 
-    public void setDailyRate(Double dailyRate) {
+    public void setDailyRate(BigDecimal dailyRate) {
         this.dailyRate = dailyRate;
     }
 

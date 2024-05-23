@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -22,12 +23,12 @@ public class ToolServiceTest {
     private static final String TOOL_CODE_1 = "CHNS";
     private static final ToolType TOOL_TYPE_1 = ToolType.CHAINSAW;
     private static final Brand TOOL_BRAND_1 = Brand.DEWALT;
-    private static final Double TOOL_DAILY_RATE_1 = 1.49;
+    private static final BigDecimal TOOL_DAILY_RATE_1 = new BigDecimal("1.49");
 
     private static final String TOOL_CODE_2 = "LADW";
     private static final ToolType TOOL_TYPE_2 = ToolType.LADDER;
     private static final Brand TOOL_BRAND_2 = Brand.WERNER;
-    private static final Double TOOL_DAILY_RATE_2 = 1.99;
+    private static final BigDecimal TOOL_DAILY_RATE_2 = new BigDecimal("1.99");
 
     @Mock
     private ToolRepository toolRepository;
