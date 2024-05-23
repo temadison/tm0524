@@ -69,16 +69,16 @@ public class ToolMO {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o)
+    public boolean equals(Object object) {
+        if (this == object)
             return true;
-        if (!(o instanceof ToolMO))
+        if (!(object instanceof ToolMO))
             return false;
-        ToolMO modelObject = (ToolMO) o;
-        return Objects.equals(this.id, modelObject.id)
-                && Objects.equals(this.code, modelObject.code)
-                && Objects.equals(this.type, modelObject.type)
-                && Objects.equals(this.brand, modelObject.brand);
+        ToolMO that = (ToolMO)object;
+        return Objects.equals(this.id, that.id)
+                && Objects.equals(this.code, that.code)
+                && Objects.equals(this.type, that.type)
+                && Objects.equals(this.brand, that.brand);
     }
 
     @Override
