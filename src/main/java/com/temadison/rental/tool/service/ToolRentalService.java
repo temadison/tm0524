@@ -17,6 +17,13 @@ public class ToolRentalService {
     @Autowired
     private ToolService toolService;
 
+    /**
+     * Complete a tool checkout returning the Rental Agreement.
+     *
+     * @param checkout
+     * @return A rental agreement
+     * @throws DataValidationException
+     */
     public Agreement checkout(Checkout checkout) throws DataValidationException {
         LOGGER.info("Performing checkout from DTO: " + checkout);
 
@@ -24,6 +31,8 @@ public class ToolRentalService {
 
         ToolMO toolMO = toolService.getToolByCode(checkout.getToolCode());
         Agreement agreement = new Agreement(toolMO, checkout.getNumberOfDays(), checkout.getDiscountPercent(), checkout.getCheckoutDate());
+
+        // Printing rental agreement to standard out per instructions
         System.out.println(agreement.asReport());
 
         return agreement;

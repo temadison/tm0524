@@ -15,7 +15,6 @@ public class ToolMO {
     @SequenceGenerator(name = "tool_seq", sequenceName = "tool_seq", allocationSize = 1)
     private Long id;
     private String code;
-
     private ToolType type;
     private Brand brand;
 
@@ -42,22 +41,6 @@ public class ToolMO {
 
     public Brand getBrand() {
         return this.brand;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setType(ToolType type) {
-        this.type = type;
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
     }
 
     public BigDecimal getDailyRate() {

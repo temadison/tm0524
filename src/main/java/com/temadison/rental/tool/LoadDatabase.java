@@ -17,6 +17,12 @@ class LoadDatabase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoadDatabase.class);
 
+    /**
+     * Initialize database using tool records from 'load_database.json' file.
+     *
+     * @param toolRepository
+     * @return
+     */
     @Bean
     CommandLineRunner initDatabase(ToolRepository toolRepository) {
         LOGGER.info("Removing existing tool records...");

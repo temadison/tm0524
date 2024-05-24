@@ -72,6 +72,11 @@ public class Checkout {
         return Objects.hash(toolCode, numberOfDays, discountPercent, checkoutDate);
     }
 
+    /**
+     * Validate the data in the Checkout instance.
+     *
+     * @throws DataValidationException
+     */
     public void validate() throws DataValidationException {
         if (this.numberOfDays < 1) {
             throw new DataValidationException(VALIDATION_MESSAGE_NUMBER_OF_DAYS);

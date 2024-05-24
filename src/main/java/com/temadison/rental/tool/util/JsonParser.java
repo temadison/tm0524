@@ -22,22 +22,28 @@ public class JsonParser {
         objectMapper.registerModule(new JavaTimeModule());
     }
 
-    public List<ToolMO> parseJsonFile(InputStream is) {
+    /**
+     * Parse an input stream containing tool data in JSON format.
+     *
+     * @param inputStream
+     * @return A list of ToolMO records.
+     */
+    public List<ToolMO> parseJsonFile(InputStream inputStream) {
         try {
             Map<String, List<ToolMO>> data = objectMapper.readValue(
-                    is,
+                    inputStream,
                     new TypeReference<Map<String, List<ToolMO>>>() {
                     }
             );
 
             return data.get("toolMOList");
         } catch (IOException e) {
-            LOGGER.error("Unable to parse JSON file '" + is + "'", e);
+            LOGGER.error("Unable to parse JSON file '" + inputStream + "'", e);
             return null;
         } finally {
             try {
-                if (is != null) {
-                    is.close();
+                if (inputStream != null) {
+                    inputStream.close();
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);

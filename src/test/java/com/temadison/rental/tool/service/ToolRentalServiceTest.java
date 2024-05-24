@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 
@@ -14,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 class ToolRentalServiceTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ToolRentalServiceTest.class);
 
     private static final String TOOL_CODE_CHNS = "CHNS";
     private static final ToolType TOOL_TYPE_CHNS = ToolType.CHAINSAW;
@@ -58,6 +62,10 @@ class ToolRentalServiceTest {
         });
 
         assertTrue(Checkout.VALIDATION_MESSAGE_DISCOUNT_PERCENT.contentEquals(exception.getMessage()));
+        LOGGER.info("Invalid input data: " + exception.getMessage());
+
+        // Printing out exception to standard output to verify test case
+        System.out.println("Invalid input data: " + exception.getMessage());
     }
 
     @Test

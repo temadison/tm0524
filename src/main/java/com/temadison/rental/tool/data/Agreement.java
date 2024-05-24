@@ -28,33 +28,17 @@ public class Agreement {
         return toolMO;
     }
 
-    public void setToolCode(ToolMO toolMO) {
-        this.toolMO = toolMO;
-    }
-
 
     public Integer getNumberOfDays() {
         return numberOfDays;
-    }
-
-    public void setNumberOfDays(Integer numberOfDays) {
-        this.numberOfDays = numberOfDays;
     }
 
     public Integer getDiscountPercent() {
         return discountPercent;
     }
 
-    public void setDiscountPercent(Integer discountPercent) {
-        this.discountPercent = discountPercent;
-    }
-
     public LocalDate getCheckoutDate() {
         return checkoutDate;
-    }
-
-    public void setCheckoutDate(LocalDate checkoutDate) {
-        this.checkoutDate = checkoutDate;
     }
 
     @Override
@@ -75,6 +59,11 @@ public class Agreement {
         return Objects.hash(toolMO.getCode(), numberOfDays, discountPercent, checkoutDate);
     }
 
+    /**
+     * Produce a formatted Rental Agreement.
+     *
+     * @return
+     */
     public String asReport() {
         Integer chargeDays = this.calculateChargeDays();
         BigDecimal discountAmount = this.calculateDiscountAmount();
