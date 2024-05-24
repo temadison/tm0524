@@ -1,8 +1,8 @@
 package com.temadison.rental.tool.service;
 
-import com.temadison.rental.tool.model.Brand;
-import com.temadison.rental.tool.model.ToolMO;
-import com.temadison.rental.tool.model.ToolType;
+import com.temadison.rental.tool.data.Brand;
+import com.temadison.rental.tool.data.ToolType;
+import com.temadison.rental.tool.data.model.ToolMO;
 import com.temadison.rental.tool.repository.ToolRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -23,16 +22,10 @@ public class ToolServiceTest {
     private static final String TOOL_CODE_CHNS = "CHNS";
     private static final ToolType TOOL_TYPE_CHNS = ToolType.CHAINSAW;
     private static final Brand TOOL_BRAND_CHNS = Brand.DEWALT;
-    private static final BigDecimal TOOL_DAILY_RATE_CHNS = new BigDecimal("1.49");
-    private static final boolean TOOL_INCLUDE_WEEKEND_DAYS_CHNS = false;
-    private static final boolean TOOL_INCLUDE_HOLIDAYS_CHNS = true;
 
     private static final String TOOL_CODE_LADW = "LADW";
     private static final ToolType TOOL_TYPE_LADW = ToolType.LADDER;
     private static final Brand TOOL_BRAND_LADW = Brand.WERNER;
-    private static final BigDecimal TOOL_DAILY_RATE_LADW = new BigDecimal("1.99");
-    private static final boolean TOOL_INCLUDE_WEEKEND_DAYS_LADW = true;
-    private static final boolean TOOL_INCLUDE_HOLIDAYS_LADW = false;
 
     @Mock
     private ToolRepository toolRepository;
@@ -47,8 +40,8 @@ public class ToolServiceTest {
     @Test
     @DisplayName("Test ToolService.getAllTools() works")
     public void testGetAllTools() {
-        ToolMO tool1 = new ToolMO(TOOL_CODE_CHNS, TOOL_TYPE_CHNS, TOOL_BRAND_CHNS, TOOL_DAILY_RATE_CHNS, TOOL_INCLUDE_WEEKEND_DAYS_CHNS, TOOL_INCLUDE_HOLIDAYS_CHNS);
-        ToolMO tool2 = new ToolMO(TOOL_CODE_LADW, TOOL_TYPE_LADW, TOOL_BRAND_LADW, TOOL_DAILY_RATE_LADW, TOOL_INCLUDE_WEEKEND_DAYS_LADW, TOOL_INCLUDE_HOLIDAYS_LADW);
+        ToolMO tool1 = new ToolMO(TOOL_CODE_CHNS, TOOL_TYPE_CHNS, TOOL_BRAND_CHNS);
+        ToolMO tool2 = new ToolMO(TOOL_CODE_LADW, TOOL_TYPE_LADW, TOOL_BRAND_LADW);
 
         when(toolRepository.findAll()).thenReturn(Arrays.asList(tool1, tool2));
 
@@ -61,7 +54,7 @@ public class ToolServiceTest {
     @Test
     @DisplayName("Test ToolService.getToolById() works when ID is found")
     public void testGetToolById() {
-        ToolMO tool = new ToolMO(TOOL_CODE_CHNS, TOOL_TYPE_CHNS, TOOL_BRAND_CHNS, TOOL_DAILY_RATE_CHNS, TOOL_INCLUDE_WEEKEND_DAYS_CHNS, TOOL_INCLUDE_HOLIDAYS_CHNS);
+        ToolMO tool = new ToolMO(TOOL_CODE_CHNS, TOOL_TYPE_CHNS, TOOL_BRAND_CHNS);
 
         when(toolRepository.findById(1L)).thenReturn(Optional.of(tool));
 
@@ -83,7 +76,7 @@ public class ToolServiceTest {
     @Test
     @DisplayName("Test ToolService.getToolByCode() works when code is found")
     public void testGetToolByCode() {
-        ToolMO tool = new ToolMO(TOOL_CODE_CHNS, TOOL_TYPE_CHNS, TOOL_BRAND_CHNS, TOOL_DAILY_RATE_CHNS, TOOL_INCLUDE_WEEKEND_DAYS_CHNS, TOOL_INCLUDE_HOLIDAYS_CHNS);
+        ToolMO tool = new ToolMO(TOOL_CODE_CHNS, TOOL_TYPE_CHNS, TOOL_BRAND_CHNS);
 
         when(toolRepository.findFirstByCode(TOOL_CODE_CHNS)).thenReturn(Optional.of(tool));
 

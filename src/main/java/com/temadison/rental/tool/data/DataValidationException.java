@@ -1,4 +1,4 @@
-package com.temadison.rental.tool.model;
+package com.temadison.rental.tool.data;
 
 public class DataValidationException extends Exception {
 

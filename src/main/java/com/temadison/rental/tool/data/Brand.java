@@ -1,4 +1,4 @@
-package com.temadison.rental.tool.model;
+package com.temadison.rental.tool.data;
 
 public enum Brand {
     STIHL("Stihl"), DEWALT("DeWalt"), RIDGID("Ridgid"), WERNER("Werner");

@@ -1,6 +1,6 @@
 package com.temadison.rental.tool.repository;
 
-import com.temadison.rental.tool.model.ToolMO;
+import com.temadison.rental.tool.data.model.ToolMO;
 
 import java.util.Optional;
 

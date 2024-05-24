@@ -1,5 +1,6 @@
-package com.temadison.rental.tool.model;
+package com.temadison.rental.tool.data;
 
+import com.temadison.rental.tool.data.model.ToolMO;
 import com.temadison.rental.tool.util.DateUtil;
 import com.temadison.rental.tool.util.FormatUtil;
 
@@ -8,14 +9,14 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class AgreementDTO {
+public class Agreement {
 
     private ToolMO toolMO;
     private Integer numberOfDays;
     private Integer discountPercent;
     private LocalDate checkoutDate;
 
-    public AgreementDTO(ToolMO toolMO, Integer numberOfDays, Integer discountPercent, LocalDate checkoutDate) {
+    public Agreement(ToolMO toolMO, Integer numberOfDays, Integer discountPercent, LocalDate checkoutDate) {
         this.toolMO = toolMO;
         this.numberOfDays = numberOfDays;
         this.discountPercent = discountPercent;
@@ -62,7 +63,7 @@ public class AgreementDTO {
             return true;
         if (object == null || getClass() != object.getClass())
             return false;
-        AgreementDTO that = (AgreementDTO) object;
+        Agreement that = (Agreement) object;
         return Objects.equals(toolMO.getCode(), that.toolMO.getCode()) &&
                 Objects.equals(numberOfDays, that.numberOfDays) &&
                 Objects.equals(discountPercent, that.discountPercent) &&

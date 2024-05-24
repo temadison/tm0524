@@ -1,13 +1,13 @@
 package com.temadison.rental.tool.service;
 
-import com.temadison.rental.tool.model.*;
+import com.temadison.rental.tool.data.*;
+import com.temadison.rental.tool.data.model.ToolMO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,22 +18,18 @@ class ToolRentalServiceTest {
     private static final String TOOL_CODE_CHNS = "CHNS";
     private static final ToolType TOOL_TYPE_CHNS = ToolType.CHAINSAW;
     private static final Brand TOOL_BRAND_CHNS = Brand.STIHL;
-    private static final BigDecimal TOOL_DAILY_RATE_CHNS = new BigDecimal("1.49");
 
     private static final String TOOL_CODE_JAKD = "JAKD";
     private static final ToolType TOOL_TYPE_JAKD = ToolType.JACKHAMMER;
     private static final Brand TOOL_BRAND_JAKD = Brand.DEWALT;
-    private static final BigDecimal TOOL_DAILY_RATE_JAKD = new BigDecimal("2.99");
 
     private static final String TOOL_CODE_JAKR = "JAKR";
     private static final ToolType TOOL_TYPE_JAKR = ToolType.JACKHAMMER;
     private static final Brand TOOL_BRAND_JAKR = Brand.RIDGID;
-    private static final BigDecimal TOOL_DAILY_RATE_JAKR = new BigDecimal("2.99");
 
     private static final String TOOL_CODE_LADW = "LADW";
     private static final ToolType TOOL_TYPE_LADW = ToolType.LADDER;
     private static final Brand TOOL_BRAND_LADW = Brand.WERNER;
-    private static final BigDecimal TOOL_DAILY_RATE_LADW = new BigDecimal("1.99");
 
     @Mock
     private ToolService toolService;
@@ -51,81 +47,81 @@ class ToolRentalServiceTest {
 
     @Test
     void checkoutTest1() {
-        ToolMO toolMO = new ToolMO(TOOL_CODE_JAKR, TOOL_TYPE_JAKR, TOOL_BRAND_JAKR, TOOL_DAILY_RATE_JAKR, false, false);
+        ToolMO toolMO = new ToolMO(TOOL_CODE_JAKR, TOOL_TYPE_JAKR, TOOL_BRAND_JAKR);
 
         when(toolService.getToolByCode(TOOL_CODE_JAKR)).thenReturn(toolMO);
 
-        CheckoutDTO checkoutDTO = new CheckoutDTO(toolMO.getCode(), 5, 101, LocalDate.of(2015, 9, 15));
+        Checkout checkout = new Checkout(toolMO.getCode(), 5, 101, LocalDate.of(2015, 9, 15));
 
         Exception exception = assertThrows(DataValidationException.class, () -> {
-            AgreementDTO agreementDTO = toolRentalService.checkout(checkoutDTO);
+            Agreement agreement = toolRentalService.checkout(checkout);
         });
 
-        assertTrue(CheckoutDTO.VALIDATION_MESSAGE_DISCOUNT_PERCENT.contentEquals(exception.getMessage()));
+        assertTrue(Checkout.VALIDATION_MESSAGE_DISCOUNT_PERCENT.contentEquals(exception.getMessage()));
     }
 
     @Test
     void checkoutTest2() throws DataValidationException {
-        ToolMO toolMO = new ToolMO(TOOL_CODE_LADW, TOOL_TYPE_LADW, TOOL_BRAND_LADW, TOOL_DAILY_RATE_LADW, true, false);
+        ToolMO toolMO = new ToolMO(TOOL_CODE_LADW, TOOL_TYPE_LADW, TOOL_BRAND_LADW);
 
         when(toolService.getToolByCode(TOOL_CODE_LADW)).thenReturn(toolMO);
 
-        CheckoutDTO checkoutDTO = new CheckoutDTO(toolMO.getCode(), 3, 10, LocalDate.of(2020, 7, 2));
-        AgreementDTO agreementDTO = toolRentalService.checkout(checkoutDTO);
+        Checkout checkout = new Checkout(toolMO.getCode(), 3, 10, LocalDate.of(2020, 7, 2));
+        Agreement agreement = toolRentalService.checkout(checkout);
 
-        assertNotNull(agreementDTO);
-        assertEquals(checkoutDTO.getToolCode(), agreementDTO.getTool().getCode());
+        assertNotNull(agreement);
+        assertEquals(checkout.getToolCode(), agreement.getTool().getCode());
     }
 
     @Test
     void checkoutTest3() throws DataValidationException {
-        ToolMO toolMO = new ToolMO(TOOL_CODE_CHNS, TOOL_TYPE_CHNS, TOOL_BRAND_CHNS, TOOL_DAILY_RATE_CHNS, false, true);
+        ToolMO toolMO = new ToolMO(TOOL_CODE_CHNS, TOOL_TYPE_CHNS, TOOL_BRAND_CHNS);
 
         when(toolService.getToolByCode(TOOL_CODE_CHNS)).thenReturn(toolMO);
 
-        CheckoutDTO checkoutDTO = new CheckoutDTO(toolMO.getCode(), 5, 25, LocalDate.of(2015, 7, 2));
-        AgreementDTO agreementDTO = toolRentalService.checkout(checkoutDTO);
+        Checkout checkout = new Checkout(toolMO.getCode(), 5, 25, LocalDate.of(2015, 7, 2));
+        Agreement agreement = toolRentalService.checkout(checkout);
 
-        assertNotNull(agreementDTO);
-        assertEquals(checkoutDTO.getToolCode(), agreementDTO.getTool().getCode());
+        assertNotNull(agreement);
+        assertEquals(checkout.getToolCode(), agreement.getTool().getCode());
     }
 
     @Test
     void checkoutTest4() throws DataValidationException {
-        ToolMO toolMO = new ToolMO(TOOL_CODE_JAKD, TOOL_TYPE_JAKD, TOOL_BRAND_JAKD, TOOL_DAILY_RATE_JAKD, true, false);
+        ToolMO toolMO = new ToolMO(TOOL_CODE_JAKD, TOOL_TYPE_JAKD, TOOL_BRAND_JAKD);
 
         when(toolService.getToolByCode(TOOL_CODE_JAKD)).thenReturn(toolMO);
 
-        CheckoutDTO checkoutDTO = new CheckoutDTO(toolMO.getCode(), 6, 0, LocalDate.of(2015, 9, 3));
-        AgreementDTO agreementDTO = toolRentalService.checkout(checkoutDTO);
+        Checkout checkout = new Checkout(toolMO.getCode(), 6, 0, LocalDate.of(2015, 9, 3));
+        Agreement agreement = toolRentalService.checkout(checkout);
 
-        assertNotNull(agreementDTO);
-        assertEquals(checkoutDTO.getToolCode(), agreementDTO.getTool().getCode());
+        assertNotNull(agreement);
+        assertEquals(checkout.getToolCode(), agreement.getTool().getCode());
     }
 
     @Test
     void checkoutTest5() throws DataValidationException {
-        ToolMO toolMO = new ToolMO(TOOL_CODE_JAKR, TOOL_TYPE_JAKR, TOOL_BRAND_JAKR, TOOL_DAILY_RATE_JAKR, true, false);
+        ToolMO toolMO = new ToolMO(TOOL_CODE_JAKR, TOOL_TYPE_JAKR, TOOL_BRAND_JAKR);
 
         when(toolService.getToolByCode(TOOL_CODE_JAKR)).thenReturn(toolMO);
 
-        CheckoutDTO checkoutDTO = new CheckoutDTO(toolMO.getCode(), 9, 0, LocalDate.of(2015, 7, 2));
-        AgreementDTO agreementDTO = toolRentalService.checkout(checkoutDTO);
+        Checkout checkout = new Checkout(toolMO.getCode(), 9, 0, LocalDate.of(2015, 7, 2));
+        Agreement agreement = toolRentalService.checkout(checkout);
 
-        assertNotNull(agreementDTO);
-        assertEquals(checkoutDTO.getToolCode(), agreementDTO.getTool().getCode());
+        assertNotNull(agreement);
+        assertEquals(checkout.getToolCode(), agreement.getTool().getCode());
     }
 
     @Test
     void checkoutTest6() throws DataValidationException {
-        ToolMO toolMO = new ToolMO(TOOL_CODE_JAKR, TOOL_TYPE_JAKR, TOOL_BRAND_JAKR, TOOL_DAILY_RATE_JAKR, true, false);
+        ToolMO toolMO = new ToolMO(TOOL_CODE_JAKR, TOOL_TYPE_JAKR, TOOL_BRAND_JAKR);
 
         when(toolService.getToolByCode(TOOL_CODE_JAKR)).thenReturn(toolMO);
 
-        CheckoutDTO checkoutDTO = new CheckoutDTO(toolMO.getCode(), 4, 50, LocalDate.of(2020, 7, 2));
-        AgreementDTO agreementDTO = toolRentalService.checkout(checkoutDTO);
+        Checkout checkout = new Checkout(toolMO.getCode(), 4, 50, LocalDate.of(2020, 7, 2));
+        Agreement agreement = toolRentalService.checkout(checkout);
 
-        assertNotNull(agreementDTO);
-        assertEquals(checkoutDTO.getToolCode(), agreementDTO.getTool().getCode());
+        assertNotNull(agreement);
+        assertEquals(checkout.getToolCode(), agreement.getTool().getCode());
     }
 }

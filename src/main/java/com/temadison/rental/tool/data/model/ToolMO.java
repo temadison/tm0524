@@ -1,5 +1,7 @@
-package com.temadison.rental.tool.model;
+package com.temadison.rental.tool.data.model;
 
+import com.temadison.rental.tool.data.Brand;
+import com.temadison.rental.tool.data.ToolType;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -17,21 +19,13 @@ public class ToolMO {
     private ToolType type;
     private Brand brand;
 
-    private BigDecimal dailyRate;
-
-    private boolean includeWeekendDays;
-    private boolean includeHolidays;
-
     protected ToolMO() {
     }
 
-    public ToolMO(String code, ToolType type, Brand brand, BigDecimal dailyRate, boolean includeWeekendDays, boolean includeHolidays) {
+    public ToolMO(String code, ToolType type, Brand brand) {
         this.code = code;
         this.type = type;
         this.brand = brand;
-        this.dailyRate = dailyRate;
-        this.includeWeekendDays = includeWeekendDays;
-        this.includeHolidays = includeHolidays;
     }
 
     public Long getId() {
@@ -50,18 +44,6 @@ public class ToolMO {
         return this.brand;
     }
 
-    public BigDecimal getDailyRate() {
-        return this.dailyRate;
-    }
-
-    public boolean includeWeekendDays() {
-        return includeWeekendDays;
-    }
-
-    public boolean includeHolidays() {
-        return includeHolidays;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -78,16 +60,16 @@ public class ToolMO {
         this.brand = brand;
     }
 
-    public void setDailyRate(BigDecimal dailyRate) {
-        this.dailyRate = dailyRate;
+    public BigDecimal getDailyRate() {
+        return this.type.getDailyRate();
     }
 
-    public void setIncludeWeekendDays(boolean includeWeekendDays) {
-        this.includeWeekendDays = includeWeekendDays;
+    public boolean includeWeekendDays() {
+        return type.includeWeekendDays();
     }
 
-    public void setIncludeHolidays(boolean includeHolidays) {
-        this.includeHolidays = includeHolidays;
+    public boolean includeHolidays() {
+        return type.includeHolidays();
     }
 
     @Override
@@ -96,7 +78,7 @@ public class ToolMO {
             return true;
         if (!(object instanceof ToolMO))
             return false;
-        ToolMO that = (ToolMO)object;
+        ToolMO that = (ToolMO) object;
         return Objects.equals(this.id, that.id)
                 && Objects.equals(this.code, that.code)
                 && Objects.equals(this.type, that.type)
@@ -114,10 +96,7 @@ public class ToolMO {
                 + "id=" + this.id + ", "
                 + "code='" + this.code + "', "
                 + "type='" + this.type + "', "
-                + "brand='" + this.brand + "', "
-                + "dailyRate=" + this.dailyRate + ", "
-                + "includeWeekendDays=" + this.includeWeekendDays + ", "
-                + "includeHolidays=" + this.includeHolidays
+                + "brand='" + this.brand
                 + "}";
     }
 }

@@ -3,7 +3,7 @@ package com.temadison.rental.tool.util;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.temadison.rental.tool.model.ToolMO;
+import com.temadison.rental.tool.data.model.ToolMO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

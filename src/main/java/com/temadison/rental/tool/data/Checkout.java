@@ -1,9 +1,9 @@
-package com.temadison.rental.tool.model;
+package com.temadison.rental.tool.data;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class CheckoutDTO {
+public class Checkout {
 
     public static final String VALIDATION_MESSAGE_NUMBER_OF_DAYS = "Number of days must be greater than 0";
     public static final String VALIDATION_MESSAGE_DISCOUNT_PERCENT = "Discount percent must be between 0 and 100";
@@ -13,7 +13,7 @@ public class CheckoutDTO {
     private Integer discountPercent;
     private LocalDate checkoutDate;
 
-    public CheckoutDTO(String toolCode, Integer numberOfDays, Integer discountPercent, LocalDate checkoutDate) {
+    public Checkout(String toolCode, Integer numberOfDays, Integer discountPercent, LocalDate checkoutDate) {
         this.toolCode = toolCode;
         this.numberOfDays = numberOfDays;
         this.discountPercent = discountPercent;
@@ -60,7 +60,7 @@ public class CheckoutDTO {
             return true;
         if (object == null || getClass() != object.getClass())
             return false;
-        CheckoutDTO that = (CheckoutDTO) object;
+        Checkout that = (Checkout) object;
         return Objects.equals(toolCode, that.toolCode) &&
                 Objects.equals(numberOfDays, that.numberOfDays) &&
                 Objects.equals(discountPercent, that.discountPercent) &&

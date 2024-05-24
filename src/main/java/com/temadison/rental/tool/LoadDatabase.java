@@ -1,6 +1,6 @@
 package com.temadison.rental.tool;
 
-import com.temadison.rental.tool.model.ToolMO;
+import com.temadison.rental.tool.data.model.ToolMO;
 import com.temadison.rental.tool.repository.ToolRepository;
 import com.temadison.rental.tool.util.JsonParser;
 import org.slf4j.Logger;
@@ -26,9 +26,9 @@ class LoadDatabase {
         LOGGER.info("Loading new tool records...");
         JsonParser parser = new JsonParser();
         InputStream is = getClass().getClassLoader().getResourceAsStream("load_database.json");
-        List<ToolMO> toolList = parser.parseJsonFile(is);
+        List<ToolMO> tools = parser.parseJsonFile(is);
         return args -> {
-            toolRepository.saveAll(toolList);
+            toolRepository.saveAll(tools);
             LOGGER.info("New tool records loaded.");
         };
     }

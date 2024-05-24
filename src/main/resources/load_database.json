@@ -3,34 +3,22 @@
     {
       "code": "CHNS",
       "type": "CHAINSAW",
-      "brand": "STIHL",
-      "dailyRate": "1.49",
-      "includeWeekendDays": false,
-      "includeHolidays": true
+      "brand": "STIHL"
     },
     {
       "code": "LADW",
       "type": "LADDER",
-      "brand": "WERNER",
-      "dailyRate": "1.99",
-      "includeWeekendDays": true,
-      "includeHolidays": false
+      "brand": "WERNER"
     },
     {
       "code": "JAKD",
       "type": "JACKHAMMER",
-      "brand": "DEWALT",
-      "dailyRate": "2.99",
-      "includeWeekendDays": false,
-      "includeHolidays": false
+      "brand": "DEWALT"
     },
     {
       "code": "JAKR",
       "type": "JACKHAMMER",
-      "brand": "RIDGID",
-      "dailyRate": "2.99",
-      "includeWeekendDays": false,
-      "includeHolidays": false
+      "brand": "RIDGID"
     }
   ]
 }

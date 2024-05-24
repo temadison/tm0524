@@ -1,6 +1,6 @@
 package com.temadison.rental.tool.service;
 
-import com.temadison.rental.tool.model.ToolMO;
+import com.temadison.rental.tool.data.model.ToolMO;
 import com.temadison.rental.tool.repository.ToolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

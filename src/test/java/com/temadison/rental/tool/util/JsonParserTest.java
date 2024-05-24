@@ -1,6 +1,6 @@
 package com.temadison.rental.tool.util;
 
-import com.temadison.rental.tool.model.ToolMO;
+import com.temadison.rental.tool.data.model.ToolMO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
