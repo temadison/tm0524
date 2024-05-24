@@ -10,8 +10,7 @@ import org.mockito.MockitoAnnotations;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 class ToolRentalServiceTest {
@@ -57,14 +56,16 @@ class ToolRentalServiceTest {
         when(toolService.getToolByCode(TOOL_CODE_JAKR)).thenReturn(toolMO);
 
         CheckoutDTO checkoutDTO = new CheckoutDTO(toolMO.getCode(), 5, 101, LocalDate.of(2015, 9, 15));
-        AgreementDTO agreementDTO = toolRentalService.checkout(checkoutDTO);
 
-        assertNotNull(agreementDTO);
-        assertEquals(checkoutDTO.getToolCode(), agreementDTO.getTool().getCode());
+        Exception exception = assertThrows(DataValidationException.class, () -> {
+            AgreementDTO agreementDTO = toolRentalService.checkout(checkoutDTO);
+        });
+
+        assertTrue(CheckoutDTO.VALIDATION_MESSAGE_DISCOUNT_PERCENT.contentEquals(exception.getMessage()));
     }
 
     @Test
-    void checkoutTest2() {
+    void checkoutTest2() throws DataValidationException {
         ToolMO toolMO = new ToolMO(TOOL_CODE_LADW, TOOL_TYPE_LADW, TOOL_BRAND_LADW, TOOL_DAILY_RATE_LADW, true, false);
 
         when(toolService.getToolByCode(TOOL_CODE_LADW)).thenReturn(toolMO);
@@ -77,7 +78,7 @@ class ToolRentalServiceTest {
     }
 
     @Test
-    void checkoutTest3() {
+    void checkoutTest3() throws DataValidationException {
         ToolMO toolMO = new ToolMO(TOOL_CODE_CHNS, TOOL_TYPE_CHNS, TOOL_BRAND_CHNS, TOOL_DAILY_RATE_CHNS, false, true);
 
         when(toolService.getToolByCode(TOOL_CODE_CHNS)).thenReturn(toolMO);
@@ -90,7 +91,7 @@ class ToolRentalServiceTest {
     }
 
     @Test
-    void checkoutTest4() {
+    void checkoutTest4() throws DataValidationException {
         ToolMO toolMO = new ToolMO(TOOL_CODE_JAKD, TOOL_TYPE_JAKD, TOOL_BRAND_JAKD, TOOL_DAILY_RATE_JAKD, true, false);
 
         when(toolService.getToolByCode(TOOL_CODE_JAKD)).thenReturn(toolMO);
@@ -103,7 +104,7 @@ class ToolRentalServiceTest {
     }
 
     @Test
-    void checkoutTest5() {
+    void checkoutTest5() throws DataValidationException {
         ToolMO toolMO = new ToolMO(TOOL_CODE_JAKR, TOOL_TYPE_JAKR, TOOL_BRAND_JAKR, TOOL_DAILY_RATE_JAKR, true, false);
 
         when(toolService.getToolByCode(TOOL_CODE_JAKR)).thenReturn(toolMO);
@@ -116,7 +117,7 @@ class ToolRentalServiceTest {
     }
 
     @Test
-    void checkoutTest6() {
+    void checkoutTest6() throws DataValidationException {
         ToolMO toolMO = new ToolMO(TOOL_CODE_JAKR, TOOL_TYPE_JAKR, TOOL_BRAND_JAKR, TOOL_DAILY_RATE_JAKR, true, false);
 
         when(toolService.getToolByCode(TOOL_CODE_JAKR)).thenReturn(toolMO);

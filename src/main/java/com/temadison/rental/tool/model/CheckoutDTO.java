@@ -5,6 +5,9 @@ import java.util.Objects;
 
 public class CheckoutDTO {
 
+    public static final String VALIDATION_MESSAGE_NUMBER_OF_DAYS = "Number of days must be greater than 0";
+    public static final String VALIDATION_MESSAGE_DISCOUNT_PERCENT = "Discount percent must be between 0 and 100";
+
     private String toolCode;
     private Integer numberOfDays;
     private Integer discountPercent;
@@ -67,6 +70,15 @@ public class CheckoutDTO {
     @Override
     public int hashCode() {
         return Objects.hash(toolCode, numberOfDays, discountPercent, checkoutDate);
+    }
+
+    public void validate() throws DataValidationException {
+        if (this.numberOfDays < 1) {
+            throw new DataValidationException(VALIDATION_MESSAGE_NUMBER_OF_DAYS);
+        }
+        if ((this.discountPercent < 0) || (this.discountPercent > 100)) {
+            throw new DataValidationException(VALIDATION_MESSAGE_DISCOUNT_PERCENT);
+        }
     }
 
     @Override
