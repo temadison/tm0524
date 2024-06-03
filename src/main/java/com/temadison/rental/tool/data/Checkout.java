@@ -1,16 +1,27 @@
 package com.temadison.rental.tool.data;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
+@JsonRootName(value = "checkout")
 public class Checkout {
 
-    public static final String VALIDATION_MESSAGE_NUMBER_OF_DAYS = "Number of days must be greater than 0";
-    public static final String VALIDATION_MESSAGE_DISCOUNT_PERCENT = "Discount percent must be between 0 and 100";
+    public static final String VALIDATION_MESSAGE_MISSING_NUMBER_OF_DAYS = "Number of days cannot be null";
+    public static final String VALIDATION_MESSAGE_INVALID_NUMBER_OF_DAYS = "Number of days must be greater than 0";
+    public static final String VALIDATION_MESSAGE_MISSING_DISCOUNT_PERCENT = "Discount percent cannot be null";
+    public static final String VALIDATION_MESSAGE_INVALID_DISCOUNT_PERCENT = "Discount percent must be between 0 and 100";
 
     private String toolCode;
     private Integer numberOfDays;
     private Integer discountPercent;
+
+//    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+//    @JsonSerialize(using = LocalDateTimeSerializer.class)
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private LocalDate checkoutDate;
 
     public Checkout(String toolCode, Integer numberOfDays, Integer discountPercent, LocalDate checkoutDate) {
@@ -78,11 +89,15 @@ public class Checkout {
      * @throws DataValidationException
      */
     public void validate() throws DataValidationException {
-        if (this.numberOfDays < 1) {
-            throw new DataValidationException(VALIDATION_MESSAGE_NUMBER_OF_DAYS);
+        if (this.numberOfDays == null) {
+            throw new DataValidationException(VALIDATION_MESSAGE_MISSING_NUMBER_OF_DAYS);
+        } else if (this.numberOfDays < 1) {
+            throw new DataValidationException(VALIDATION_MESSAGE_INVALID_NUMBER_OF_DAYS);
         }
-        if ((this.discountPercent < 0) || (this.discountPercent > 100)) {
-            throw new DataValidationException(VALIDATION_MESSAGE_DISCOUNT_PERCENT);
+        if (this.discountPercent == null) {
+            throw new DataValidationException(VALIDATION_MESSAGE_MISSING_DISCOUNT_PERCENT);
+        } else if ((this.discountPercent < 0) || (this.discountPercent > 100)) {
+            throw new DataValidationException(VALIDATION_MESSAGE_INVALID_DISCOUNT_PERCENT);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.temadison.rental.tool.data;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import com.temadison.rental.tool.data.model.ToolMO;
 import com.temadison.rental.tool.util.DateUtil;
 import com.temadison.rental.tool.util.FormatUtil;
@@ -9,6 +10,7 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@JsonRootName(value = "agreement")
 public class Agreement {
 
     private ToolMO toolMO;

@@ -61,7 +61,7 @@ class ToolRentalServiceTest {
             Agreement agreement = toolRentalService.checkout(checkout);
         });
 
-        assertTrue(Checkout.VALIDATION_MESSAGE_DISCOUNT_PERCENT.contentEquals(exception.getMessage()));
+        assertTrue(Checkout.VALIDATION_MESSAGE_INVALID_DISCOUNT_PERCENT.contentEquals(exception.getMessage()));
         LOGGER.info("Invalid input data: " + exception.getMessage());
 
         // Printing out exception to standard output to verify test case
